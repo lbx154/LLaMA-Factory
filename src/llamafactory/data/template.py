@@ -1993,3 +1993,10 @@ register_template(
     format_user=StringFormatter(slots=["<human>:{{content}}\n<bot>:"]),
     format_assistant=StringFormatter(slots=["{{content}}\n"]),
 )
+register_template(
+    name="my_llm",
+    format_user=StringFormatter(slots=[{"bos_token"}, "{{content}}"]),
+    format_assistant=StringFormatter(slots=["{{content}}", {"eos_token"}]),
+    # format_separator=EmptyFormatter(slots=[{"eos_token"}]),
+    # efficient_eos=True,   # add eos_token in the end but delete it between more turns
+)
