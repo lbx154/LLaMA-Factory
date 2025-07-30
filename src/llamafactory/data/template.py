@@ -1993,6 +1993,7 @@ register_template(
     format_user=StringFormatter(slots=["<human>:{{content}}\n<bot>:"]),
     format_assistant=StringFormatter(slots=["{{content}}\n"]),
 )
+
 register_template(
     name="my_llm",
     format_user=StringFormatter(slots=[{"bos_token"}, "{{content}}"]),
