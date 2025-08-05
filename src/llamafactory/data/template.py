@@ -2001,3 +2001,15 @@ register_template(
     # format_separator=EmptyFormatter(slots=[{"eos_token"}]),
     # efficient_eos=True,   # add eos_token in the end but delete it between more turns
 )
+register_template(
+    name="BFS-Prover",
+    format_user=StringFormatter(slots=["<|im_start|>user\n{{content}}<|im_end|>\n<|im_start|>assistant\n"]),
+    format_assistant=StringFormatter(slots=["{{content}}<|im_end|>\n"]),
+    format_system=StringFormatter(slots=["<|im_start|>system\n{{content}}<|im_end|>\n"]),
+    format_observation=StringFormatter(
+        slots=["<|im_start|>user\n<tool_response>\n{{content}}\n</tool_response><|im_end|>\n<|im_start|>assistant\n"]
+    ),
+    default_system="Please reason step by step, and put your final answer within \\boxed{}.",
+    stop_words=["<|im_end|>"],
+    replace_eos=True,
+)
