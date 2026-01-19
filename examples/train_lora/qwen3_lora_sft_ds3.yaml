@@ -21,7 +21,8 @@ dataloader_num_workers: 4
 ### output
 output_dir: saves/qwen3-4b/lora/sft
 logging_steps: 10
-save_steps: 500
+save_strategy: steps
+save_steps: 1000000000  # effectively disables intermediate ckpt saves
 plot_loss: true
 overwrite_output_dir: true
 save_only_model: false
@@ -31,7 +32,7 @@ report_to: none  # choices: [none, wandb, tensorboard, swanlab, mlflow]
 per_device_train_batch_size: 1
 gradient_accumulation_steps: 2
 learning_rate: 1.0e-4
-num_train_epochs: 3.0
+num_train_epochs: 30000
 lr_scheduler_type: cosine
 warmup_ratio: 0.1
 bf16: true
