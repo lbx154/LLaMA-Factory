@@ -738,5 +738,14 @@
       "prompt": "content"
     },
     "folder": "python"
+  },
+  "sketchlemma_sft": {
+    "file_name": "sketchlemma_sft.jsonl",
+    "formatting": "alpaca",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
   }
 }

@@ -1,0 +1,41 @@
+### model
+model_name_or_path: Qwen/Qwen3-4B-Instruct-2507
+trust_remote_code: true
+use_v1_kernels: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+deepspeed: examples/deepspeed/ds_z3_config.json  # ZeRO-3 是多机全量微调的最佳选择
+gradient_checkpointing: true
+flash_attn: auto
+
+### dataset
+dataset: sketchlemma_sft
+template: qwen3_nothink
+cutoff_len: 8000
+# max_samples: 100000  # 建议调大或注释掉，否则训练结束得太快
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: saves/Qwen3-4B-Instruct-2507/full/sft_autotp
+logging_steps: 1
+save_steps: 100      # 32卡下，每100步其实已经看过了6400条数据，建议调小
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 2  # 全局 Batch Size = 32 * 1 * 2 = 64
+learning_rate: 5.0e-5
+num_train_epochs: 30000             # 增加轮数，确保训练充分
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
